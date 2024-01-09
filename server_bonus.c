@@ -1,6 +1,4 @@
 #include "minitalk.h"
-
-
 int i;
 
 void ft_putchar (int c)
@@ -21,10 +19,12 @@ int reverse_bits( int b)
 	return (r);
 }
 
-void	handler_siguser1(int sig)
+void	handler_siguser1(int sig, siginfo_t *info,void *zaida)
 {
 	static int c;
-	
+	int pid;
+
+	zaida = NULL;
 	if (sig == SIGUSR1)
 		c = (c << 1) | 1;
 	else if (sig == SIGUSR2)
@@ -32,9 +32,12 @@ void	handler_siguser1(int sig)
 	i++;
 	if(i == 8)
 	{
+		if (!pid)
+			pid = info->si_pid;
 		int tmp;
 		tmp = reverse_bits(c);
 		ft_putchar((char)tmp);
+		kill(pid,SIGUSR1);
 		i = 0;
 		c = 0;
 	}	
@@ -43,11 +46,14 @@ void	handler_siguser1(int sig)
 int	main(void)
 {
 	int pid;
+	struct sigaction ss;
 
 	pid = getpid();
 	printf("%d\n",pid);
-	signal(SIGUSR1, handler_siguser1);
-	signal(SIGUSR2, handler_siguser1);
+	ss.sa_sigaction = &handler_siguser1;
+	ss.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1,&ss,NULL);
+	sigaction(SIGUSR1,&ss,NULL);
 	while (1){
 		pause();	
 	}

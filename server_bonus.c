@@ -24,6 +24,7 @@ void	handler_siguser1(int sig, siginfo_t *info,void *zaida)
 	static int c;
 	int pid;
 
+	pid = info->si_pid;
 	zaida = NULL;
 	if (sig == SIGUSR1)
 		c = (c << 1) | 1;
@@ -32,15 +33,15 @@ void	handler_siguser1(int sig, siginfo_t *info,void *zaida)
 	i++;
 	if(i == 8)
 	{
-		if (!pid)
-			pid = info->si_pid;
 		int tmp;
 		tmp = reverse_bits(c);
+		if (c == '\0')
+			kill(pid,SIGUSR2);
 		ft_putchar((char)tmp);
 		kill(pid,SIGUSR1);
 		i = 0;
 		c = 0;
-	}	
+	}
 }
 
 int	main(void)
@@ -53,7 +54,7 @@ int	main(void)
 	ss.sa_sigaction = &handler_siguser1;
 	ss.sa_flags = SA_SIGINFO;
 	sigaction(SIGUSR1,&ss,NULL);
-	sigaction(SIGUSR1,&ss,NULL);
+	sigaction(SIGUSR2,&ss,NULL);
 	while (1){
 		pause();	
 	}

@@ -1,18 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/10 12:13:58 by mmezyan           #+#    #+#             */
+/*   Updated: 2024/01/10 12:22:23 by mmezyan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
+int	g_i;
 
-int i;
-
-void ft_putchar (int c)
+void	ft_putchar(int c)
 {
 	write (1, &c, 1);
 }
 
-int reverse_bits( int b)
+int	reverse_bits( int b)
 {
-	int	r = 0;
-	int	byte_len = 8;
+	int	r;
+	int	byte_len;
 
+	r = 0;
+	byte_len = 8;
 	while (byte_len--)
 	{
 		r = (r << 1) | (b & 1);
@@ -23,34 +36,34 @@ int reverse_bits( int b)
 
 void	handler_siguser1(int sig)
 {
-	static int c;
-	
+	static int	c;
+	int			tmp;
+
 	if (sig == SIGUSR1)
 		c = (c << 1) | 1;
 	else if (sig == SIGUSR2)
 		c = (c << 1) | 0;
-	i++;
-	if(i == 8)
+	g_i++;
+	if (g_i == 8)
 	{
-		int tmp;
 		tmp = reverse_bits(c);
 		ft_putchar((char)tmp);
-		i = 0;
+		g_i = 0;
 		c = 0;
-	}	
+	}
 }
 
 int	main(void)
 {
-	int pid;
+	int	pid;
 
 	pid = getpid();
-	printf("%d\n",pid);
+	printf("%d\n", pid);
 	signal(SIGUSR1, handler_siguser1);
 	signal(SIGUSR2, handler_siguser1);
-	while (1){
-		pause();	
+	while (1)
+	{
+		pause();
 	}
 	return (0);
 }
-

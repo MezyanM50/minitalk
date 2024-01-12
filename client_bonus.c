@@ -1,9 +1,21 @@
-#include<stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/10 12:13:42 by mmezyan           #+#    #+#             */
+/*   Updated: 2024/01/10 12:24:45 by mmezyan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdio.h>
 #include "minitalk.h"
 
 void	ft_convert_send_bites(char c, int pid)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 8)
@@ -17,9 +29,9 @@ void	ft_convert_send_bites(char c, int pid)
 	}
 }
 
-void handle_sig(int sig)
+void	handle_sig(int sig)
 {
-	if (sig== SIGUSR1)
+	if (sig == SIGUSR1)
 		printf("wsal\n");
 	if (sig == SIGUSR2)
 		exit(0);
@@ -27,32 +39,30 @@ void handle_sig(int sig)
 
 void	ft_client(int pid, char *string)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	
 	signal(SIGUSR2, handle_sig);
 	signal(SIGUSR1, handle_sig);
 	while (string[i])
 	{
 		ft_convert_send_bites(string[i], pid);
-		i++;		
+		i++;
 	}
 	if (!string[i])
 		ft_convert_send_bites(string[i], pid);
 }
 
-
-int main(int arc,char **arv)
+int	main(int arc, char **arv)
 {
-	int pid;
+	int	pid;
 
 	if (arc != 3)
-		return -1;
+		return (-1);
 	pid = ft_atoi(arv[1]);
 	if (pid == -1)
-		return -1;
-	ft_client(pid,arv[2]);
+		return (-1);
+	ft_client(pid, arv[2]);
 	while (1)
 		;
 	return (0);

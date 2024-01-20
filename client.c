@@ -16,15 +16,15 @@ void	ft_convert_send_bites(char c, int pid)
 {
 	int	i;
 
-	i = 0;
-	while (i < 8)
+	i = 7;
+	while (i > -1)
 	{
-		usleep(50);
+		usleep(100);
 		if (c >> i & 1)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		i++;
+		i--;
 	}
 }
 
@@ -47,7 +47,7 @@ int	main(int arc, char **arv)
 	if (arc != 3)
 		return (-1);
 	pid = ft_atoi(arv[1]);
-	if (pid == -1 || pid = 0)
+	if (pid == -1 || pid == 0)
 		return (-1);
 	ft_client(pid, arv[2]);
 	return (0);

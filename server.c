@@ -37,7 +37,7 @@ int	reverse_bits( int b)
 void	handler_siguser1(int sig)
 {
 	static int	c;
-	int			tmp;
+	//int			tmp;
 
 	if (sig == SIGUSR1)
 		c = (c << 1) | 1;
@@ -46,8 +46,9 @@ void	handler_siguser1(int sig)
 	g_i++;
 	if (g_i == 8)
 	{
-		tmp = reverse_bits(c);
-		ft_putchar((char)tmp);
+		//tmp = reverse_bits(c);
+		//printf("%d", c);
+		ft_putchar((char)c);
 		g_i = 0;
 		c = 0;
 	}

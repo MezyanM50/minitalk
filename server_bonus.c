@@ -6,7 +6,7 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:55 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/01/10 12:26:45 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/01/21 20:26:24 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,55 @@ int	reverse_bits(int b)
 	}
 	return (r);
 }
-
 void	handler_siguser1(int sig, siginfo_t *info, void *zaida)
 {
 	static int	c;
 	int			pid;
-	int			tmp;
+	//int			tmp;
 
 	pid = info->si_pid;
-	zaida = NULL;
+	(void)zaida;
 	if (sig == SIGUSR1)
-		c = (c << 1) | 1;
+		c = c << 1 | 1;
 	else if (sig == SIGUSR2)
-		c = (c << 1) | 0;
+		c = c << 1 | 0;
 	g_i++;
 	if (g_i == 8)
 	{
-		tmp = reverse_bits(c);
+		//tmp = reverse_bits(c);
 		if (c == '\0')
 			kill(pid, SIGUSR2);
-		ft_putchar((char)tmp);
-		kill(pid, SIGUSR1);
+		ft_putchar((char)c);
+		if (c != '\0')
+			kill(pid, SIGUSR1);
 		g_i = 0;
 		c = 0;
 	}
 }
+// void	handler_siguser1(int sig, siginfo_t *info, void *zaida)
+// {
+// 	static int	c;
+// 	int			pid;
+// 	int			tmp;
+
+// 	pid = info->si_pid;
+// 	zaida = NULL;
+// 	if (sig == SIGUSR1)
+// 		c = (c << 1) | 1;
+// 	else if (sig == SIGUSR2)
+// 		c = (c << 1) | 0;
+// 	g_i++;
+// 	if (g_i == 8)
+// 	{
+// 		tmp = reverse_bits(c);
+// 		if (c == '\0')
+// 			kill(pid, SIGUSR2);
+// 		ft_putchar((char)tmp);
+// 		kill(pid, SIGUSR1);
+// 		g_i = 0;
+// 		c = 0;
+// 	}
+// }
 
 int	main(void)
 {

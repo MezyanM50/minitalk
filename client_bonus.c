@@ -6,33 +6,34 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:42 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/01/10 12:24:45 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/01/21 20:29:43 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "minitalk.h"
 
+
 void	ft_convert_send_bites(char c, int pid)
 {
 	int	i;
 
-	i = 0;
-	while (i < 8)
+	i = 7;
+	while (i >= 0)
 	{
-		usleep(50);
+		usleep(100);
 		if (c >> i & 1)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		i++;
+		i--;
 	}
 }
 
 void	handle_sig(int sig)
 {
 	if (sig == SIGUSR1)
-		printf("wsal\n");
+		write(1, "success\n", 8);
 	if (sig == SIGUSR2)
 		exit(0);
 }

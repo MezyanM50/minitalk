@@ -1,10 +1,19 @@
 CFLAGS = -Wall -Wextra -Werror
+CLIENT = client.c ft_atoi.c
+SERVER = server.c
+CLIENT_b = client_bonus.c ft_atoi.c
+SERVER_b = server_bonus.c
+NAME_C = client
+NAME_S = server
 
-all: $(NAME)
+all: $(NAME_C) $(NAME_S)
 
-$(NAME): 
-	cc $(CFLAGS) client.c ft_atoi.c -o client
-	cc $(CFLAGS) server.c -o server
+$(NAME_C): $(CLIENT)
+	cc $(CFLAGS) $^ -o $@
+
+$(NAME_S): $(SERVER)
+	cc $(CFLAGS) $< -o $@
+
 
 bonus :
 	cc $(CFLAGS) client_bonus.c ft_atoi.c -o client

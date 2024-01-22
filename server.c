@@ -6,7 +6,7 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:58 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/01/10 12:22:23 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/01/22 15:23:47 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	handler_siguser1(int sig)
 	if (sig == SIGUSR1)
 		c = c << 1 | 1;
 	else if (sig == SIGUSR2)
-		c = c << 1 | 0;
+		c = c << 1;
 	g_i++;
 	if (g_i == 8)
 	{
@@ -35,6 +35,7 @@ void	handler_siguser1(int sig)
 		//printf("%c\n", c);
 		ft_putchar((char)c);
 		g_i = 0;
+		c = 0;
 	}
 }
 
@@ -47,8 +48,6 @@ int	main(void)
 	signal(SIGUSR1, handler_siguser1);
 	signal(SIGUSR2, handler_siguser1);
 	while (1)
-	{
 		pause();
-	}
 	return (0);
 }

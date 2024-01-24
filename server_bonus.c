@@ -19,20 +19,20 @@ void	ft_putchar(int c)
 	write(1, &c, 1);
 }
 
-int	reverse_bits(int b)
-{
-	int	r;
-	int	byte_len;
+// int	reverse_bits(int b)
+// {
+// 	int	r;
+// 	int	byte_len;
 
-	r = 0;
-	byte_len = 8;
-	while (byte_len--)
-	{
-		r = (r << 1) | (b & 1);
-		b >>= 1;
-	}
-	return (r);
-}
+// 	r = 0;
+// 	byte_len = 8;
+// 	while (byte_len--)
+// 	{
+// 		r = (r << 1) | (b & 1);
+// 		b >>= 1;
+// 	}
+// 	return (r);
+// }
 void	handler_siguser1(int sig, siginfo_t *info, void *zaida)
 {
 	static int	c;
@@ -50,10 +50,16 @@ void	handler_siguser1(int sig, siginfo_t *info, void *zaida)
 	{
 		//tmp = reverse_bits(c);
 		if (c == '\0')
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				return ;
+		}
 		ft_putchar((char)c);
 		if (c != '\0')
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				return ;
+		}
 		g_i = 0;
 		c = 0;
 	}

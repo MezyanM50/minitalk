@@ -19,11 +19,17 @@ void	ft_convert_send_bites(char c, int pid)
 	i = 7;
 	while (i >= 0)
 	{
-		usleep(80);
+		usleep(2500);
 		if (c >> i & 1)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				return ;
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				return ;
+		}
 		i--;
 	}
 }

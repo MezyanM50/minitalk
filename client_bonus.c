@@ -21,7 +21,7 @@ void	ft_convert_send_bites(char c, int pid)
 	i = 7;
 	while (i >= 0)
 	{
-		usleep(100);
+		usleep(2500);
 		if (c >> i & 1)
 			kill(pid, SIGUSR1);
 		else

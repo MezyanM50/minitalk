@@ -6,7 +6,7 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:55 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/01/21 20:26:24 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/02/06 13:07:29 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ void	handler_siguser1(int sig, siginfo_t *info, void *zaida)
 			if (kill(pid, SIGUSR2) == -1)
 				return ;
 		}
-		ft_putchar((char)c);
+		
 		if (c != '\0')
 		{
+			ft_putchar((char)c);
 			if (kill(pid, SIGUSR1) == -1)
 				return ;
 		}

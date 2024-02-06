@@ -6,7 +6,7 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:42 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/01/21 20:29:43 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/02/06 13:06:22 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@ void	ft_convert_send_bites(char c, int pid)
 	i = 7;
 	while (i >= 0)
 	{
-		usleep(2500);
+		usleep(400);
 		if (c >> i & 1)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				return ;
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				return ;
+		}
 		i--;
 	}
 }

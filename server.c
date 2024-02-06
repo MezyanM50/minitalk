@@ -6,23 +6,22 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:58 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/01/22 15:23:47 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/02/06 13:17:52 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	g_i;
+int		g_i;
 
 void	ft_putchar(int c)
 {
-	write (1, &c, 1);
+	write(1, &c, 1);
 }
 
 void	handler_siguser1(int sig)
 {
 	static int	c;
-	//int			tmp;
 
 	if (sig == SIGUSR1)
 		c = c << 1 | 1;
@@ -31,8 +30,6 @@ void	handler_siguser1(int sig)
 	g_i++;
 	if (g_i == 8)
 	{
-		//tmp = reverse_bi
-		//printf("%c\n", c);
 		ft_putchar((char)c);
 		g_i = 0;
 		c = 0;

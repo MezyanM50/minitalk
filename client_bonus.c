@@ -6,13 +6,12 @@
 /*   By: mmezyan <mmezyan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:13:42 by mmezyan           #+#    #+#             */
-/*   Updated: 2024/02/06 13:06:22 by mmezyan          ###   ########.fr       */
+/*   Updated: 2024/02/06 13:17:16 by mmezyan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "minitalk.h"
-
+#include <stdio.h>
 
 void	ft_convert_send_bites(char c, int pid)
 {
